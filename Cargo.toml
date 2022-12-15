@@ -1,0 +1,7 @@
+[package]
+name = "rust-rdkafka-musl"
+version = "0.1.0"
+authors = ["0xDjole"]
+
+[dependencies]
+rdkafka = { version = "0.29.0", features = ["ssl-vendored", "cmake-build"] }

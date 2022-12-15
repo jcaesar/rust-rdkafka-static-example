@@ -1,12 +1,10 @@
-ARG BASE_IMAGE=ekidd/rust-musl-builder:latest
+ARG BASE_IMAGE=clux/muslrust:1.63.0
 
 FROM ${BASE_IMAGE} AS builder
 
-RUN sudo apt update
+COPY . ./
 
-RUN sudo apt-get install libsasl2-dev
-
-ADD --chown=rust:rust . ./
-
-RUN cargo build --release
+RUN cargo build --release --target $(uname -m)-unknown-linux-musl \
+    && target/$(uname -m)-unknown-linux-musl/release/rust-rdkafka-musl \
+    && file target/$(uname -m)-unknown-linux-musl/release/rust-rdkafka-musl
 
